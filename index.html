@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akhilesh J — AI/ML Engineer</title>
+    <meta name="description" content="Portfolio of Akhilesh J — AI/ML Engineer specializing in Generative AI APIs, LLM integration, prompt engineering, and backend architecture.">
+    <meta name="keywords" content="AI Engineer, Machine Learning, LLM, Generative AI, Prompt Engineering, Portfolio">
+    <meta name="author" content="Akhilesh J">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- SPLINE 3D BACKGROUND CONTAINER                  -->
+    <!-- Replace this div's contents with your Spline    -->
+    <!-- embed to add 3D background across the site      -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <div id="spline-bg" class="spline-background">
+        <!-- <script type="module" src="https://unpkg.com/@splinetool/viewer@1.0.0/build/spline-viewer.js"></script> -->
+        <!-- <spline-viewer url="YOUR_SPLINE_SCENE_URL"></spline-viewer> -->
+    </div>
+
+    <!-- CURSOR GLOW EFFECT -->
+    <div id="cursor-glow" class="cursor-glow"></div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- NAVIGATION                                      -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <nav id="navbar" class="navbar">
+        <div class="nav-inner">
+            <a href="#hero" class="nav-logo">
+                <span class="logo-bracket">[</span>AJ<span class="logo-bracket">]</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#about" class="nav-link" data-index="01">About</a></li>
+                <li><a href="#skills" class="nav-link" data-index="02">Skills</a></li>
+                <li><a href="#experience" class="nav-link" data-index="03">Experience</a></li>
+                <li><a href="#projects" class="nav-link" data-index="04">Projects</a></li>
+                <li><a href="#contact" class="nav-link" data-index="05">Contact</a></li>
+            </ul>
+            <a href="#contact" class="nav-cta">Let's Talk</a>
+            <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div id="mobile-menu" class="mobile-menu">
+        <ul class="mobile-nav-links">
+            <li><a href="#about" class="mobile-link" data-index="01">About</a></li>
+            <li><a href="#skills" class="mobile-link" data-index="02">Skills</a></li>
+            <li><a href="#experience" class="mobile-link" data-index="03">Experience</a></li>
+            <li><a href="#projects" class="mobile-link" data-index="04">Projects</a></li>
+            <li><a href="#contact" class="mobile-link" data-index="05">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- HERO SECTION                                    -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <section id="hero" class="hero-section">
+        <!-- Spline container for hero-specific 3D scene -->
+        <div id="spline-hero" class="spline-section-container"></div>
+
+        <div class="hero-content">
+            <div class="hero-top-row">
+                <div class="hero-status">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Available for work</span>
+                </div>
+                <div class="hero-location">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span>Bangalore, India</span>
+                </div>
+            </div>
+
+            <div class="hero-main">
+                <p class="hero-greeting">Hi, I'm</p>
+                <h1 class="hero-name">
+                    <span class="name-line" data-reveal>Akhilesh J</span>
+                </h1>
+                <div class="hero-title-wrapper">
+                    <div class="hero-title-line"></div>
+                    <h2 class="hero-title">AI/ML Engineer</h2>
+                    <div class="hero-title-line"></div>
+                </div>
+                <p class="hero-tagline">I design and build <span class="text-gradient">intelligent, scalable AI systems</span> with a strong focus on Generative AI APIs, large language model integration, prompt engineering, and backend architecture.</p>
+            </div>
+
+            <div class="hero-bottom">
+                <div class="hero-metrics">
+                    <div class="metric">
+                        <span class="metric-value" data-count="5">0</span><span class="metric-suffix">+</span>
+                        <span class="metric-label">Projects</span>
+                    </div>
+                    <div class="metric-divider"></div>
+                    <div class="metric">
+                        <span class="metric-value" data-count="20">0</span><span class="metric-suffix">+</span>
+                        <span class="metric-label">Projects Delivered</span>
+                    </div>
+                    <div class="metric-divider"></div>
+                    <div class="metric">
+                        <span class="metric-value" data-count="10">0</span><span class="metric-suffix">+</span>
+                        <span class="metric-label">AI Models Deployed</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-scroll-indicator">
+            <div class="scroll-line"></div>
+            <span>scroll</span>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- ABOUT SECTION                                   -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <section id="about" class="section about-section">
+        <div id="spline-about" class="spline-section-container"></div>
+        <div class="container">
+            <div class="section-header">
+                <span class="section-index">01</span>
+                <h2 class="section-title">About<span class="title-dot">.</span></h2>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="about-grid">
+                <div class="about-text">
+                    <p class="about-intro">I'm an <strong>AI/ML Engineer</strong> who thrives at the intersection of research and production.</p>
+                    <p>I design and build intelligent, scalable AI systems with a strong focus on Generative AI APIs, large language model integration, prompt engineering, and backend architecture. From orchestrating multi-agent systems to fine-tuning LLMs for domain-specific tasks, I bring AI from concept to production.</p>
+                    <p>My approach combines rigorous engineering practices with creative problem-solving. I believe that the best AI applications are those that feel invisible — seamlessly integrated into the tools people use every day.</p>
+
+                    <div class="about-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Name</span>
+                            <span class="detail-value">Akhilesh J</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Role</span>
+                            <span class="detail-value">AI/ML Engineer</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Location</span>
+                            <span class="detail-value">Bangalore, India</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Focus</span>
+                            <span class="detail-value">GenAI APIs & LLM Integration</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-visual">
+                    <div class="about-card-stack">
+                        <div class="about-card card-1">
+                            <div class="card-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                            </div>
+                            <h4>AI-First Thinking</h4>
+                            <p>Designing solutions where AI is the core, not a bolt-on feature.</p>
+                        </div>
+                        <div class="about-card card-2">
+                            <div class="card-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                            </div>
+                            <h4>Production-Grade Code</h4>
+                            <p>Engineering robust, scalable AI systems built for the real world.</p>
+                        </div>
+                        <div class="about-card card-3">
+                            <div class="card-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                            </div>
+                            <h4>Full-Stack AI</h4>
+                            <p>From data pipelines to model deployment to user-facing interfaces.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- SKILLS SECTION                                  -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <section id="skills" class="section skills-section">
+        <div id="spline-skills" class="spline-section-container"></div>
+        <div class="container">
+            <div class="section-header">
+                <span class="section-index">02</span>
+                <h2 class="section-title">Skills & Arsenal<span class="title-dot">.</span></h2>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="skills-grid">
+                <!-- AI & ML -->
+                <div class="skill-category" data-category="ai">
+                    <div class="skill-cat-header">
+                        <div class="skill-cat-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a4 4 0 0 1 4 4c0 1.1-.4 2-1 2.8L12 12l-3-3.2A4 4 0 0 1 12 2z"/><path d="M12 12l3 3.2A4 4 0 1 1 8 18c0-1.1.4-2 1-2.8L12 12z"/><circle cx="12" cy="12" r="1.5"/></svg>
+                        </div>
+                        <h3>AI & Machine Learning</h3>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">LLMs</span>
+                        <span class="skill-tag">RAG Systems</span>
+                        <span class="skill-tag">Fine-Tuning</span>
+                        <span class="skill-tag">Prompt Engineering</span>
+                        <span class="skill-tag">Multi-Agent Systems</span>
+                        <span class="skill-tag">NLP</span>
+                        <span class="skill-tag">Computer Vision</span>
+                        <span class="skill-tag">MLOps</span>
+                        <span class="skill-tag">Vector Databases</span>
+                        <span class="skill-tag">Embedding Models</span>
+                    </div>
+                </div>
+
+                <!-- Frameworks & Tools -->
+                <div class="skill-category" data-category="frameworks">
+                    <div class="skill-cat-header">
+                        <div class="skill-cat-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
+                        </div>
+                        <h3>Frameworks & Platforms</h3>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">LangChain</span>
+                        <span class="skill-tag">LangGraph</span>
+                        <span class="skill-tag">CrewAI</span>
+                        <span class="skill-tag">Hugging Face</span>
+                        <span class="skill-tag">OpenAI API</span>
+                        <span class="skill-tag">PyTorch</span>
+                        <span class="skill-tag">TensorFlow</span>
+                        <span class="skill-tag">FastAPI</span>
+                        <span class="skill-tag">Streamlit</span>
+                        <span class="skill-tag">Gradio</span>
+                    </div>
+                </div>
+
+                <!-- Languages -->
+                <div class="skill-category" data-category="languages">
+                    <div class="skill-cat-header">
+                        <div class="skill-cat-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="14" y1="4" x2="10" y2="20"/></svg>
+                        </div>
+                        <h3>Languages</h3>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">TypeScript</span>
+                        <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">Bash</span>
+                        <span class="skill-tag">Go</span>
+                    </div>
+                </div>
+
+                <!-- Infrastructure -->
+                <div class="skill-category" data-category="infra">
+                    <div class="skill-cat-header">
+                        <div class="skill-cat-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12H2"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><line x1="6" y1="16" x2="6.01" y2="16"/><line x1="10" y1="16" x2="10.01" y2="16"/></svg>
+                        </div>
+                        <h3>Infrastructure & DevOps</h3>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Kubernetes</span>
+                        <span class="skill-tag">AWS</span>
+                        <span class="skill-tag">GCP</span>
+                        <span class="skill-tag">CI/CD</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">Redis</span>
+                        <span class="skill-tag">Pinecone</span>
+                        <span class="skill-tag">Weaviate</span>
+                        <span class="skill-tag">Git</span>
+                    </div>
+                </div>
+
+                <!-- Frontend -->
+                <div class="skill-category" data-category="frontend">
+                    <div class="skill-cat-header">
+                        <div class="skill-cat-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+                        </div>
+                        <h3>Frontend & Design</h3>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">React</span>
+                        <span class="skill-tag">Next.js</span>
+                        <span class="skill-tag">Three.js</span>
+                        <span class="skill-tag">Spline</span>
+                        <span class="skill-tag">Figma</span>
+                        <span class="skill-tag">CSS/SCSS</span>
+                        <span class="skill-tag">Framer Motion</span>
+                    </div>
+                </div>
+
+                <!-- Workflow -->
+                <div class="skill-category" data-category="workflow">
+                    <div class="skill-cat-header">
+                        <div class="skill-cat-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="5" cy="6" r="3"/><circle cx="19" cy="6" r="3"/><circle cx="12" cy="18" r="3"/><path d="M5 9v3a4 4 0 0 0 4 4h2"/><path d="M19 9v3a4 4 0 0 1-4 4h-2"/></svg>
+                        </div>
+                        <h3>AI Workflow Design</h3>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Agent Orchestration</span>
+                        <span class="skill-tag">Pipeline Design</span>
+                        <span class="skill-tag">ETL Pipelines</span>
+                        <span class="skill-tag">Data Engineering</span>
+                        <span class="skill-tag">API Design</span>
+                        <span class="skill-tag">System Architecture</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- EXPERIENCE SECTION                              -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <section id="experience" class="section experience-section">
+        <div id="spline-experience" class="spline-section-container"></div>
+        <div class="container">
+            <div class="section-header">
+                <span class="section-index">03</span>
+                <h2 class="section-title">Experience<span class="title-dot">.</span></h2>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item" data-aos>
+                    <div class="timeline-marker">
+                        <div class="marker-dot"></div>
+                        <div class="marker-line"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <div class="timeline-meta">
+                                <span class="timeline-date">2024 — Present</span>
+                                <span class="timeline-tag">Current</span>
+                            </div>
+                            <h3 class="timeline-role">AI Applications Engineer</h3>
+                            <p class="timeline-company">Company Name <span class="company-separator">•</span> Bangalore, India</p>
+                        </div>
+                        <div class="timeline-body">
+                            <ul class="timeline-achievements">
+                                <li>Architected and deployed multi-agent AI systems using LangGraph and CrewAI, reducing manual workflow processing time by 60%</li>
+                                <li>Designed and implemented RAG pipelines with vector databases (Pinecone, Weaviate) serving 10K+ daily queries with sub-200ms latency</li>
+                                <li>Built production-grade LLM integration layers with fallback strategies, token optimization, and cost monitoring</li>
+                                <li>Led the development of internal AI tooling platform enabling non-technical teams to create custom AI workflows</li>
+                            </ul>
+                            <div class="timeline-tech">
+                                <span>LangChain</span><span>LangGraph</span><span>Python</span><span>FastAPI</span><span>Docker</span><span>AWS</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos>
+                    <div class="timeline-marker">
+                        <div class="marker-dot"></div>
+                        <div class="marker-line"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <div class="timeline-meta">
+                                <span class="timeline-date">2023 — 2024</span>
+                            </div>
+                            <h3 class="timeline-role">ML Engineer</h3>
+                            <p class="timeline-company">Company Name <span class="company-separator">•</span> Bangalore, India</p>
+                        </div>
+                        <div class="timeline-body">
+                            <ul class="timeline-achievements">
+                                <li>Developed and fine-tuned domain-specific language models for enterprise document processing, achieving 94% accuracy</li>
+                                <li>Implemented end-to-end MLOps pipelines with automated model retraining, A/B testing, and canary deployments</li>
+                                <li>Created NLP-powered search engine with semantic understanding, improving search relevance by 45%</li>
+                                <li>Collaborated with cross-functional teams to integrate ML models into existing enterprise applications</li>
+                            </ul>
+                            <div class="timeline-tech">
+                                <span>PyTorch</span><span>Hugging Face</span><span>MLflow</span><span>Kubernetes</span><span>GCP</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-aos>
+                    <div class="timeline-marker">
+                        <div class="marker-dot"></div>
+                        <div class="marker-line"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <div class="timeline-meta">
+                                <span class="timeline-date">2022 — 2023</span>
+                            </div>
+                            <h3 class="timeline-role">Software Engineer — AI Team</h3>
+                            <p class="timeline-company">Company Name <span class="company-separator">•</span> Remote</p>
+                        </div>
+                        <div class="timeline-body">
+                            <ul class="timeline-achievements">
+                                <li>Built data ingestion pipelines processing 1M+ documents daily for training data preparation</li>
+                                <li>Developed REST APIs for model serving with comprehensive monitoring and alerting</li>
+                                <li>Implemented automated data quality checks and validation pipelines reducing data issues by 70%</li>
+                            </ul>
+                            <div class="timeline-tech">
+                                <span>Python</span><span>SQL</span><span>Docker</span><span>PostgreSQL</span><span>Redis</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- PROJECTS SECTION                                -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <section id="projects" class="section projects-section">
+        <div id="spline-projects" class="spline-section-container"></div>
+        <div class="container">
+            <div class="section-header">
+                <span class="section-index">04</span>
+                <h2 class="section-title">Featured Work<span class="title-dot">.</span></h2>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <article class="project-card project-featured" id="project-1">
+                    <div class="project-image">
+                        <div class="project-image-placeholder">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                        </div>
+                        <div class="project-overlay">
+                            <a href="#" class="project-link" aria-label="View project">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                            </a>
+                            <a href="#" class="project-link" aria-label="View code">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-type">AI Workflow Platform</span>
+                        <h3 class="project-title">Multi-Agent Orchestration Engine</h3>
+                        <p class="project-desc">A production-ready framework for orchestrating multiple AI agents with dynamic task allocation, shared memory, and real-time collaboration capabilities.</p>
+                        <div class="project-tech">
+                            <span>LangGraph</span><span>Python</span><span>Redis</span><span>WebSocket</span><span>React</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 2 -->
+                <article class="project-card" id="project-2">
+                    <div class="project-image">
+                        <div class="project-image-placeholder">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                        </div>
+                        <div class="project-overlay">
+                            <a href="#" class="project-link" aria-label="View project">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                            </a>
+                            <a href="#" class="project-link" aria-label="View code">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-type">RAG System</span>
+                        <h3 class="project-title">Intelligent Document QA</h3>
+                        <p class="project-desc">Enterprise RAG system with hybrid search, context-aware retrieval, and cited responses across 100K+ documents.</p>
+                        <div class="project-tech">
+                            <span>LangChain</span><span>Pinecone</span><span>FastAPI</span><span>Next.js</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 3 -->
+                <article class="project-card" id="project-3">
+                    <div class="project-image">
+                        <div class="project-image-placeholder">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                        </div>
+                        <div class="project-overlay">
+                            <a href="#" class="project-link" aria-label="View project">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                            </a>
+                            <a href="#" class="project-link" aria-label="View code">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-type">MLOps</span>
+                        <h3 class="project-title">AutoML Pipeline Framework</h3>
+                        <p class="project-desc">Automated ML pipeline with data validation, model training, hyperparameter tuning, and deployment orchestration.</p>
+                        <div class="project-tech">
+                            <span>PyTorch</span><span>MLflow</span><span>Docker</span><span>Kubernetes</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 4 -->
+                <article class="project-card" id="project-4">
+                    <div class="project-image">
+                        <div class="project-image-placeholder">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                        </div>
+                        <div class="project-overlay">
+                            <a href="#" class="project-link" aria-label="View project">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                            </a>
+                            <a href="#" class="project-link" aria-label="View code">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-type">Conversational AI</span>
+                        <h3 class="project-title">Context-Aware AI Assistant</h3>
+                        <p class="project-desc">A multi-turn conversational AI with persistent memory, tool use, and domain adaptation for customer support.</p>
+                        <div class="project-tech">
+                            <span>OpenAI</span><span>LangChain</span><span>PostgreSQL</span><span>Streamlit</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <div class="projects-footer">
+                <a href="https://github.com/NightFury09" class="btn btn-outline" target="_blank">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                    <span>View All Projects on GitHub</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- TESTIMONIALS / SOCIAL PROOF SECTION              -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <section id="testimonials" class="section testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-index">—</span>
+                <h2 class="section-title">What People Say<span class="title-dot">.</span></h2>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card" id="testimonial-1">
+                    <div class="testimonial-quote">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" opacity="0.3"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+                    </div>
+                    <p class="testimonial-text">"Akhilesh's ability to translate complex AI concepts into production-ready applications is exceptional. He delivered a multi-agent system that exceeded our expectations in both performance and reliability."</p>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <span class="author-name">Engineering Lead</span>
+                            <span class="author-role">Previous employer</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card" id="testimonial-2">
+                    <div class="testimonial-quote">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" opacity="0.3"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+                    </div>
+                    <p class="testimonial-text">"Working with Akhilesh was a game-changer for our AI initiatives. His deep understanding of both the ML pipeline and software engineering best practices resulted in solutions that actually work at scale."</p>
+                    <div class="testimonial-author">
+                        <div class="author-info">
+                            <span class="author-name">CTO</span>
+                            <span class="author-role">AI Startup</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- CONTACT SECTION                                 -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <section id="contact" class="section contact-section">
+        <div id="spline-contact" class="spline-section-container"></div>
+        <div class="container">
+            <div class="section-header">
+                <span class="section-index">05</span>
+                <h2 class="section-title">Get In Touch<span class="title-dot">.</span></h2>
+                <div class="section-line"></div>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <p class="contact-intro">Have a project in mind or want to discuss AI solutions? I'm always open to interesting conversations and opportunities.</p>
+
+                    <div class="contact-methods">
+                        <a href="mailto:akhileshjaikumar090301@gmail.com" class="contact-method" id="contact-email">
+                            <div class="contact-method-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            </div>
+                            <div>
+                                <span class="contact-method-label">Email</span>
+                                <span class="contact-method-value">akhileshjaikumar090301@gmail.com</span>
+                            </div>
+                        </a>
+
+                        <a href="https://www.linkedin.com/in/akhilesh-jaikumar/" class="contact-method" id="contact-linkedin" target="_blank">
+                            <div class="contact-method-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                            </div>
+                            <div>
+                                <span class="contact-method-label">LinkedIn</span>
+                                <span class="contact-method-value">linkedin.com/in/akhilesh-jaikumar</span>
+                            </div>
+                        </a>
+
+                        <a href="https://github.com/NightFury09" class="contact-method" id="contact-github" target="_blank">
+                            <div class="contact-method-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                            </div>
+                            <div>
+                                <span class="contact-method-label">GitHub</span>
+                                <span class="contact-method-value">github.com/NightFury09</span>
+                            </div>
+                        </a>
+
+                        <a href="/resume.pdf" class="contact-method" id="contact-cv" target="_blank">
+                            <div class="contact-method-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                            </div>
+                            <div>
+                                <span class="contact-method-label">Resume</span>
+                                <span class="contact-method-value">Download CV</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="contact-form-wrapper">
+                    <form id="contact-form" class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" placeholder="Your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" placeholder="What's this about?">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" placeholder="Tell me about your project..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full" id="submit-btn">
+                            <span>Send Message</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- FOOTER                                          -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <footer id="footer" class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#hero" class="footer-logo">
+                        <span class="logo-bracket">[</span>AJ<span class="logo-bracket">]</span>
+                    </a>
+                    <p class="footer-tagline">Building intelligent systems<br>that move the needle.</p>
+                </div>
+
+                <div class="footer-links-group">
+                    <h4>Navigate</h4>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#skills">Skills</a></li>
+                        <li><a href="#experience">Experience</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links-group">
+                    <h4>Connect</h4>
+                    <ul>
+                        <li><a href="https://github.com/NightFury09" target="_blank">GitHub</a></li>
+                        <li><a href="https://www.linkedin.com/in/akhilesh-jaikumar/" target="_blank">LinkedIn</a></li>
+                        <li><a href="mailto:akhileshjaikumar090301@gmail.com">Email</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links-group">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="/resume.pdf" target="_blank">Resume</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-copyright">&copy; 2026 Akhilesh J. Designed & Built with precision.</p>
+                <div class="footer-social">
+                    <a href="https://github.com/NightFury09" target="_blank" aria-label="GitHub">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/akhilesh-jaikumar/" target="_blank" aria-label="LinkedIn">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>
