@@ -7,11 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavbar();
     initMobileMenu();
     initCursorGlow();
+    initBackgroundGlow();
     initScrollReveal();
     initCounterAnimation();
     initSmoothScroll();
     initContactForm();
     initNavActiveHighlight();
+    initSupabaseCV();
 });
 
 /* ─── NAVBAR SCROLL EFFECT ──────────────────────────────────── */
@@ -85,6 +87,66 @@ function initCursorGlow() {
         requestAnimationFrame(animateGlow);
     }
     animateGlow();
+}
+
+
+
+/* ─── SPLINE ROBOT GLOW EFFECT ──────────────────────────────── */
+function initBackgroundGlow() {
+    const bgGlow = document.getElementById('bg-glow');
+    if (!bgGlow) return;
+    
+    if ('ontouchstart' in window) return; // Desktop only
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let currentX = mouseX;
+    let currentY = mouseY;
+
+    document.addEventListener('pointermove', (e) => {
+        if (!e.isTrusted) return;
+        
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        
+        const canvas = document.getElementById('canvas3d');
+        if (canvas) {
+            canvas.dispatchEvent(new PointerEvent('pointermove', {
+                clientX: e.clientX,
+                clientY: e.clientY,
+                bubbles: true,
+                cancelable: true,
+                view: window
+            }));
+        }
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (!e.isTrusted) return;
+        
+        const canvas = document.getElementById('canvas3d');
+        if (canvas) {
+            canvas.dispatchEvent(new MouseEvent('mousemove', {
+                clientX: e.clientX,
+                clientY: e.clientY,
+                bubbles: true,
+                cancelable: true,
+                view: window
+            }));
+        }
+    });
+
+    function animateBgGlow() {
+        // The glow follows mouse slightly slower to feel like it has weight
+        currentX += (mouseX - currentX) * 0.035;
+        currentY += (mouseY - currentY) * 0.035;
+        
+        bgGlow.style.left = currentX + 'px';
+        bgGlow.style.top = currentY + 'px';
+        
+        requestAnimationFrame(animateBgGlow);
+    }
+    animateBgGlow();
 }
 
 /* ─── SCROLL REVEAL (Intersection Observer) ─────────────────── */
@@ -206,24 +268,27 @@ function initContactForm() {
 
         const btn = form.querySelector('#submit-btn');
         const originalHTML = btn.innerHTML;
+        
+        const nameInput = form.querySelector('#name').value || '';
+        const emailInput = form.querySelector('#email').value || '';
+        const subjectInput = form.querySelector('#subject').value || 'Portfolio Contact';
+        const messageInput = form.querySelector('#message').value || '';
+        
+        const subject = encodeURIComponent(subjectInput);
+        const bodyText = `From: ${nameInput} (${emailInput})\n\n${messageInput}`;
+        const body = encodeURIComponent(bodyText);
+        
+        window.location.href = `mailto:akhileshjaikumar090301@gmail.com?subject=${subject}&body=${body}`;
 
-        // Simulate sending
-        btn.innerHTML = '<span>Sending...</span>';
-        btn.disabled = true;
-        btn.style.opacity = '0.7';
+        // Feedback
+        btn.innerHTML = '<span>Opening Mail Client...</span>';
+        btn.style.background = '#22c55e';
 
         setTimeout(() => {
-            btn.innerHTML = '<span>Message Sent! ✓</span>';
-            btn.style.background = '#22c55e';
-            btn.style.opacity = '1';
-
-            setTimeout(() => {
-                btn.innerHTML = originalHTML;
-                btn.style.background = '';
-                btn.disabled = false;
-                form.reset();
-            }, 3000);
-        }, 1500);
+            btn.innerHTML = originalHTML;
+            btn.style.background = '';
+            form.reset();
+        }, 3000);
     });
 }
 
@@ -254,3 +319,56 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+/* ─── SUPABASE INTEGRATION (CV DOWNLOAD) ────────────────────── */
+function initSupabaseCV() {
+    const cvBtn = document.getElementById('download-cv-btn');
+    if (!cvBtn) return;
+
+    // TODO: Replace with your actual Supabase URL and Anon Key
+    const SUPABASE_URL = 'https://YOUR_PROJECT_ID.supabase.co';
+    const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY';
+    
+    cvBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        
+        if (SUPABASE_URL === 'https://YOUR_PROJECT_ID.supabase.co') {
+            alert("Supabase integration is wired up! Please seamlessly inject your genuine Project URL and Anon Key in assets/js/main.js to execute the secure database download interaction.");
+            return;
+        }
+
+        const span = cvBtn.querySelector('span');
+        const originalText = span.innerText;
+        span.innerText = 'Querying DBMS...';
+        cvBtn.style.opacity = '0.7';
+
+        try {
+            // Initialize Supabase Client
+            const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            
+            /* SHOWCASING SUPABASE AS A DBMS:
+               We query a table named 'assets' to get the URL dynamically 
+               rather than hardcoding endpoints. 
+            */
+            const { data, error } = await _supabase
+                .from('assets')
+                .select('file_url')
+                .eq('name', 'resume_pdf')
+                .single();
+                
+            if (error) throw error;
+            if (data && data.file_url) {
+                window.open(data.file_url, '_blank');
+            } else {
+                throw new Error("No URL payload returned from database");
+            }
+            
+        } catch (error) {
+            console.error('Error querying Supabase execution:', error);
+            alert("Database connection failed. Please ensure the 'assets' table exists and your environmental keys are exact.");
+        } finally {
+            span.innerText = originalText;
+            cvBtn.style.opacity = '1';
+        }
+    });
+}

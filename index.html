@@ -10,7 +10,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 </head>
 <body>
 
@@ -20,8 +21,18 @@
     <!-- embed to add 3D background across the site      -->
     <!-- ═══════════════════════════════════════════════ -->
     <div id="spline-bg" class="spline-background">
-        <!-- <script type="module" src="https://unpkg.com/@splinetool/viewer@1.0.0/build/spline-viewer.js"></script> -->
-        <!-- <spline-viewer url="YOUR_SPLINE_SCENE_URL"></spline-viewer> -->
+        <div id="spline-transform" class="spline-transform">
+            <div id="bg-glow" class="bg-glow"></div>
+            <canvas id="canvas3d" class="canvas3d"></canvas>
+        </div>
+        <script type="module">
+            import { Application } from 'https://esm.sh/@splinetool/runtime';
+
+            const canvas = document.getElementById('canvas3d');
+            const spline = new Application(canvas);
+            spline.load('https://prod.spline.design/cEkGwLBtihlV1Bta/scene.splinecode')
+                .then(() => console.log('Spline 3D background loaded successfully!'));
+        </script>
     </div>
 
     <!-- CURSOR GLOW EFFECT -->
@@ -42,7 +53,10 @@
                 <li><a href="#projects" class="nav-link" data-index="04">Projects</a></li>
                 <li><a href="#contact" class="nav-link" data-index="05">Contact</a></li>
             </ul>
-            <a href="#contact" class="nav-cta">Let's Talk</a>
+            <a href="#" id="download-cv-btn" class="nav-resume-btn">
+                <span>Download CV</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17"></path></svg>
+            </a>
             <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Toggle menu">
                 <span></span><span></span><span></span>
             </button>
@@ -242,23 +256,7 @@
                     </div>
                 </div>
 
-                <!-- Languages -->
-                <div class="skill-category" data-category="languages">
-                    <div class="skill-cat-header">
-                        <div class="skill-cat-icon">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/><line x1="14" y1="4" x2="10" y2="20"/></svg>
-                        </div>
-                        <h3>Languages</h3>
-                    </div>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">JavaScript</span>
-                        <span class="skill-tag">TypeScript</span>
-                        <span class="skill-tag">SQL</span>
-                        <span class="skill-tag">Bash</span>
-                        <span class="skill-tag">Go</span>
-                    </div>
-                </div>
+
 
                 <!-- Infrastructure -->
                 <div class="skill-category" data-category="infra">
@@ -282,24 +280,7 @@
                     </div>
                 </div>
 
-                <!-- Frontend -->
-                <div class="skill-category" data-category="frontend">
-                    <div class="skill-cat-header">
-                        <div class="skill-cat-icon">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
-                        </div>
-                        <h3>Frontend & Design</h3>
-                    </div>
-                    <div class="skill-tags">
-                        <span class="skill-tag">React</span>
-                        <span class="skill-tag">Next.js</span>
-                        <span class="skill-tag">Three.js</span>
-                        <span class="skill-tag">Spline</span>
-                        <span class="skill-tag">Figma</span>
-                        <span class="skill-tag">CSS/SCSS</span>
-                        <span class="skill-tag">Framer Motion</span>
-                    </div>
-                </div>
+
 
                 <!-- Workflow -->
                 <div class="skill-category" data-category="workflow">
@@ -544,46 +525,6 @@
 
 
 
-    <!-- ═══════════════════════════════════════════════ -->
-    <!-- TESTIMONIALS / SOCIAL PROOF SECTION              -->
-    <!-- ═══════════════════════════════════════════════ -->
-    <section id="testimonials" class="section testimonials-section">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-index">—</span>
-                <h2 class="section-title">What People Say<span class="title-dot">.</span></h2>
-                <div class="section-line"></div>
-            </div>
-
-            <div class="testimonials-grid">
-                <div class="testimonial-card" id="testimonial-1">
-                    <div class="testimonial-quote">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" opacity="0.3"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
-                    </div>
-                    <p class="testimonial-text">"Akhilesh's ability to translate complex AI concepts into production-ready applications is exceptional. He delivered a multi-agent system that exceeded our expectations in both performance and reliability."</p>
-                    <div class="testimonial-author">
-                        <div class="author-info">
-                            <span class="author-name">Engineering Lead</span>
-                            <span class="author-role">Previous employer</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card" id="testimonial-2">
-                    <div class="testimonial-quote">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" opacity="0.3"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
-                    </div>
-                    <p class="testimonial-text">"Working with Akhilesh was a game-changer for our AI initiatives. His deep understanding of both the ML pipeline and software engineering best practices resulted in solutions that actually work at scale."</p>
-                    <div class="testimonial-author">
-                        <div class="author-info">
-                            <span class="author-name">CTO</span>
-                            <span class="author-role">AI Startup</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- ═══════════════════════════════════════════════ -->
     <!-- CONTACT SECTION                                 -->
@@ -727,6 +668,7 @@
         </div>
     </footer>
 
-    <script src="main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/js/main.js"></script>
 </body>
 </html>

@@ -1,0 +1,8 @@
+# Local Netlify folder
+.netlify
+
+# Environment & AI
+.agents/
+*.zip
+.DS_Store
+.env

@@ -151,9 +151,39 @@ button {
     z-index: var(--z-spline);
     pointer-events: none;
 }
-.spline-background > * {
-    width: 100%;
-    height: 100%;
+
+.spline-transform {
+    width: 120vw;
+    height: 120vh;
+    position: absolute;
+    top: -10vh;
+    left: -10vw;
+    pointer-events: none;
+}
+
+.bg-glow {
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(220, 38, 38, 0.3) 0%, rgba(220, 38, 38, 0.08) 40%, transparent 70%);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    pointer-events: none;
+    z-index: -1;
+    animation: glowPulse 4.5s infinite ease-in-out;
+    mix-blend-mode: screen;
+}
+
+@keyframes glowPulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+    50% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.9; }
+}
+
+.canvas3d {
+    width: 100%; 
+    height: 100%; 
+    outline: none;
     pointer-events: auto;
 }
 
@@ -290,6 +320,51 @@ button {
     background: var(--accent-light);
     box-shadow: 0 0 24px var(--accent-glow);
     transform: translateY(-1px);
+}
+
+.nav-resume-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    font-size: 0.825rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 100px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all var(--duration) var(--ease-out);
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 0.02em;
+}
+
+.nav-resume-btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, rgba(220, 38, 38, 0.15), transparent);
+    opacity: 0;
+    transition: opacity var(--duration) var(--ease-out);
+}
+
+.nav-resume-btn:hover {
+    border-color: rgba(220, 38, 38, 0.3);
+    color: white;
+    box-shadow: 0 4px 20px rgba(220, 38, 38, 0.1);
+    transform: translateY(-1px);
+}
+
+.nav-resume-btn:hover::before {
+    opacity: 1;
+}
+
+.nav-resume-btn span,
+.nav-resume-btn svg {
+    position: relative;
+    z-index: 1;
 }
 
 /* Mobile menu button */
@@ -772,8 +847,8 @@ button {
 /* ─── SKILLS SECTION ────────────────────────────────────────── */
 .skills-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
 }
 
 .skill-category {
