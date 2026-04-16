@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://akhileshj.md">Live Site</a> •
+  <a href="https://akhileshj.site">Live Site</a> •
   <a href="https://linkedin.com/in/akhilesh-jaikumar/">LinkedIn</a> •
   <a href="mailto:akhileshjaikumar090301@gmail.com">Email</a>
 </p>
