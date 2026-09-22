@@ -1692,9 +1692,35 @@ button {
     }
 }
 
-/* ─── UTILITY: HIDE CURSOR GLOW ON TOUCH ────────────────────── */
+/* ─── CURSOR GLOW ON TOUCH ──────────────────────────────────── */
+/* Previously `@media (hover: none) { display: none }`, which hid the glow on
+   every touch device. The glow now follows a finger via pointer events, so it
+   only needs to be smaller on a phone-sized screen. */
 @media (hover: none) {
     .cursor-glow {
+        width: 260px;
+        height: 260px;
+    }
+}
+
+/* ─── REDUCED MOTION ────────────────────────────────────────── */
+/* The JS bails out of both glow loops when this is set; this also stops the
+   pulse keyframes and the scroll-reveal transitions. */
+@media (prefers-reduced-motion: reduce) {
+    .cursor-glow {
         display: none;
+    }
+
+    .bg-glow {
+        animation: none;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
 }
