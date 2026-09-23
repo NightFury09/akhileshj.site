@@ -1,0 +1,36 @@
+name: Bug report
+description: Something on the site is broken
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What you expected, and what actually happened.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Go to ...
+        2. Click ...
+        3. See error
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - Cosmetic
+        - Degraded - feature partly works
+        - Broken - feature unusable
+        - Critical - site down
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser / device
