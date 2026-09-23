@@ -9,6 +9,22 @@
         content="Portfolio of Akhilesh J — AI/ML Engineer specializing in Generative AI APIs, LLM integration, prompt engineering, and backend architecture.">
     <meta name="keywords" content="AI Engineer, Machine Learning, LLM, Generative AI, Prompt Engineering, Portfolio">
     <meta name="author" content="Akhilesh J">
+    <link rel="canonical" href="https://akhileshj.site/">
+    <meta name="theme-color" content="#0a0a0a">
+
+    <!-- Open Graph / LinkedIn / Slack link previews -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Akhilesh J">
+    <meta property="og:url" content="https://akhileshj.site/">
+    <meta property="og:title" content="Akhilesh J — AI/ML Engineer">
+    <meta property="og:description"
+        content="AI/ML Engineer specializing in Generative AI APIs, LLM integration, prompt engineering, and backend architecture.">
+
+    <!-- Twitter/X -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Akhilesh J — AI/ML Engineer">
+    <meta name="twitter:description"
+        content="AI/ML Engineer specializing in Generative AI APIs, LLM integration, prompt engineering, and backend architecture.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -19,11 +35,8 @@
 </head>
 
 <body>
-
     <!-- ═══════════════════════════════════════════════ -->
     <!-- SPLINE 3D BACKGROUND CONTAINER                  -->
-    <!-- Replace this div's contents with your Spline    -->
-    <!-- embed to add 3D background across the site      -->
     <!-- ═══════════════════════════════════════════════ -->
     <div id="spline-bg" class="spline-background">
         <div id="spline-transform" class="spline-transform">
@@ -31,12 +44,54 @@
             <canvas id="canvas3d" class="canvas3d"></canvas>
         </div>
         <script type="module">
-            import { Application } from 'https://esm.sh/@splinetool/runtime';
+            /* The runtime version is PINNED deliberately.
+             *
+             * This import previously read `https://esm.sh/@splinetool/runtime`
+             * with no version, so esm.sh served whatever was newest. When
+             * Spline published 2.0.x the WebGPU renderer threw
+             * `Cannot read properties of undefined (reading 'shadowsDirty')`
+             * inside its render loop on every frame, which froze the page's
+             * main thread - the robot never appeared and the hero counters
+             * stopped mid-animation. No change was made to this site; a
+             * third-party release broke it.
+             *
+             * 1.12.85 is the version current when this scene was authored
+             * (2026-04-16) and is verified to load it. Do not unpin. To
+             * upgrade, bump this number and confirm the scene still renders. */
+            const SPLINE_RUNTIME = 'https://esm.sh/@splinetool/runtime@1.12.85';
+            const SCENE = 'https://prod.spline.design/cEkGwLBtihlV1Bta/scene.splinecode';
 
-            const canvas = document.getElementById('canvas3d');
-            const spline = new Application(canvas);
-            spline.load('https://prod.spline.design/cEkGwLBtihlV1Bta/scene.splinecode')
-                .then(() => console.log('Spline 3D background loaded successfully!'));
+            const splineBg = document.getElementById('spline-bg');
+
+            /* Only load the scene where it can actually be seen and used:
+             *  - a fine pointer, because the whole point is cursor tracking
+             *  - a viewport wide enough for the robot not to be cropped
+             *  - motion not suppressed by the OS
+             * This also spares phones a ~1.3 MB download plus a WebGL context
+             * for an effect they could never interact with. */
+            const wanted =
+                window.matchMedia('(pointer: fine)').matches &&
+                window.matchMedia('(min-width: 769px)').matches &&
+                !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            if (!wanted) {
+                if (splineBg) splineBg.hidden = true;
+            } else {
+                try {
+                    const { Application } = await import(SPLINE_RUNTIME);
+                    const canvas = document.getElementById('canvas3d');
+                    const spline = new Application(canvas);
+                    await spline.load(SCENE);
+                } catch (err) {
+                    /* Degrade to the plain dark background rather than leaving
+                     * a dead canvas and a half-initialised render loop. */
+                    // Hide the whole container, not just the canvas: #bg-glow lives
+                    // inside it and exists to light the robot, so on its own it is
+                    // just an unexplained red halo chasing the cursor.
+                    console.error('Spline scene failed to load; continuing without it.', err);
+                    if (splineBg) splineBg.hidden = true;
+                }
+            }
         </script>
     </div>
 
@@ -123,7 +178,7 @@
             <div class="hero-bottom">
                 <div class="hero-metrics">
                     <div class="metric">
-                        <span class="metric-value" data-count="2+">0</span><span class="metric-suffix">+</span>
+                        <span class="metric-value" data-count="2">0</span><span class="metric-suffix">+</span>
                         <span class="metric-label">Years of Experience</span>
                     </div>
                     <div class="metric-divider"></div>

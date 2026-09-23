@@ -55,98 +55,143 @@ function initMobileMenu() {
     });
 }
 
+/* ─── SHARED ENVIRONMENT HELPERS ────────────────────────────── */
+function prefersReducedMotion() {
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+// True for mouse/trackpad/stylus. Deliberately NOT `'ontouchstart' in window`,
+// which is true on every touch-capable laptop and wrongly disabled the glow there.
+function hasFinePointer() {
+    return window.matchMedia('(pointer: fine)').matches;
+}
+
+// Browsers already pause requestAnimationFrame in a hidden tab, so there is no
+// visibility bookkeeping here on purpose: an earlier version gated the loop on
+// `document.hidden` and simply never started when the page loaded in a
+// background tab.
+function runAnimationLoop(step) {
+    function frame() {
+        step();
+        requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+}
+
 /* ─── CURSOR GLOW EFFECT ────────────────────────────────────── */
 function initCursorGlow() {
     const glow = document.getElementById('cursor-glow');
     if (!glow) return;
 
-    // Check for touch device
-    if ('ontouchstart' in window) return;
+    // A 400px halo chasing the pointer is motion; honour the OS preference.
+    if (prefersReducedMotion()) return;
 
-    let mouseX = 0, mouseY = 0;
-    let glowX = 0, glowY = 0;
+    let targetX = window.innerWidth / 2;
+    let targetY = window.innerHeight / 2;
+    let glowX = targetX;
+    let glowY = targetY;
+    let placed = false;
 
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
+    // `pointermove` covers mouse, stylus AND touch in one code path, which is
+    // what makes this work on mobile - the old handler listened for `mousemove`
+    // only, so a finger never moved the glow.
+    document.addEventListener('pointermove', (e) => {
+        targetX = e.clientX;
+        targetY = e.clientY;
+
+        // On a touch screen there is no cursor to ease towards, so jump the
+        // glow to the first touch instead of sliding in from the last position.
+        if (!placed && e.pointerType !== 'mouse') {
+            glowX = targetX;
+            glowY = targetY;
+            placed = true;
+        }
         glow.style.opacity = '1';
-    });
+    }, { passive: true });
 
-    document.addEventListener('mouseleave', () => {
+    // A finger leaving the glass is the touch equivalent of the cursor
+    // leaving the window.
+    document.addEventListener('pointerup', (e) => {
+        if (e.pointerType !== 'mouse') {
+            glow.style.opacity = '0';
+            placed = false;
+        }
+    }, { passive: true });
+
+    document.addEventListener('pointercancel', () => {
         glow.style.opacity = '0';
-    });
+        placed = false;
+    }, { passive: true });
 
-    function animateGlow() {
-        // Smooth lerp
-        glowX += (mouseX - glowX) * 0.08;
-        glowY += (mouseY - glowY) * 0.08;
+    document.addEventListener('mouseleave', () => { glow.style.opacity = '0'; });
 
+    runAnimationLoop(() => {
+        glowX += (targetX - glowX) * 0.08;
+        glowY += (targetY - glowY) * 0.08;
+        // left/top rather than transform: .bg-glow's glowPulse keyframes animate
+        // transform, and a running animation overrides inline transform.
         glow.style.left = glowX + 'px';
         glow.style.top = glowY + 'px';
-
-        requestAnimationFrame(animateGlow);
-    }
-    animateGlow();
+    });
 }
 
-
-
-/* ─── SPLINE ROBOT GLOW EFFECT ──────────────────────────────── */
+/* ─── SPLINE ROBOT: GLOW + CURSOR TRACKING ──────────────────── */
 function initBackgroundGlow() {
     const bgGlow = document.getElementById('bg-glow');
     if (!bgGlow) return;
-    
-    if ('ontouchstart' in window) return; // Desktop only
+    const host = document.getElementById('spline-transform') || bgGlow.parentElement;
 
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    let currentX = mouseX;
-    let currentY = mouseY;
+    // The 3D scene is only loaded for fine pointers (see index.html), so there
+    // is nothing here to drive on a phone.
+    if (!hasFinePointer() || prefersReducedMotion()) return;
 
+    let targetX = window.innerWidth / 2;
+    let targetY = window.innerHeight / 2;
+    let currentX = targetX;
+    let currentY = targetY;
+
+    // #spline-bg sits at z-index 0 under the whole page and is
+    // `pointer-events: none`, so real pointer events never reach the canvas and
+    // the robot's look-at behaviour never fires. Forwarding a synthetic event
+    // to the canvas is what drives it. Verified against the scene: `Head`
+    // rotation responds to these, and does not move without them.
     document.addEventListener('pointermove', (e) => {
         if (!e.isTrusted) return;
-        
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        
-        const canvas = document.getElementById('canvas3d');
-        if (canvas) {
-            canvas.dispatchEvent(new PointerEvent('pointermove', {
-                clientX: e.clientX,
-                clientY: e.clientY,
-                bubbles: true,
-                cancelable: true,
-                view: window
-            }));
-        }
-    });
 
-    document.addEventListener('mousemove', (e) => {
-        if (!e.isTrusted) return;
-        
-        const canvas = document.getElementById('canvas3d');
-        if (canvas) {
-            canvas.dispatchEvent(new MouseEvent('mousemove', {
-                clientX: e.clientX,
-                clientY: e.clientY,
-                bubbles: true,
-                cancelable: true,
-                view: window
-            }));
-        }
-    });
+        targetX = e.clientX;
+        targetY = e.clientY;
 
-    function animateBgGlow() {
-        // The glow follows mouse slightly slower to feel like it has weight
-        currentX += (mouseX - currentX) * 0.035;
-        currentY += (mouseY - currentY) * 0.035;
-        
-        bgGlow.style.left = currentX + 'px';
-        bgGlow.style.top = currentY + 'px';
-        
-        requestAnimationFrame(animateBgGlow);
-    }
-    animateBgGlow();
+        const canvas = document.getElementById('canvas3d');
+        if (!canvas) return;
+
+        canvas.dispatchEvent(new PointerEvent('pointermove', {
+            clientX: e.clientX,
+            clientY: e.clientY,
+            pointerId: 1,
+            pointerType: 'mouse',
+            isPrimary: true,
+            bubbles: true,
+            cancelable: true,
+            view: window
+        }));
+    }, { passive: true });
+
+    runAnimationLoop(() => {
+        // Trails the pointer more slowly than the cursor glow, so it reads as
+        // having weight.
+        currentX += (targetX - currentX) * 0.035;
+        currentY += (targetY - currentY) * 0.035;
+
+        // #bg-glow is a child of .spline-transform, which is 120vw x 120vh
+        // anchored at -10vw/-10vh - so its coordinate space is NOT the
+        // viewport's. Writing clientX straight into `left` drew the halo one
+        // tenth of the viewport up and to the left of the cursor, which read
+        // as a second glow trailing the real one. Subtracting the container's
+        // own offset puts it back under the pointer.
+        const origin = host.getBoundingClientRect();
+        bgGlow.style.left = (currentX - origin.left) + 'px';
+        bgGlow.style.top = (currentY - origin.top) + 'px';
+    });
 }
 
 /* ─── SCROLL REVEAL (Intersection Observer) ─────────────────── */
@@ -183,37 +228,45 @@ function initScrollReveal() {
 /* ─── COUNTER ANIMATION (Hero stats) ────────────────────────── */
 function initCounterAnimation() {
     const counters = document.querySelectorAll('[data-count]');
+    if (!counters.length) return;
+
+    // Anyone who has asked for less motion gets the final number immediately.
+    if (prefersReducedMotion()) {
+        counters.forEach(el => { el.textContent = String(counterTarget(el)); });
+        return;
+    }
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const el = entry.target;
-                const target = parseInt(el.getAttribute('data-count'));
-                animateCounter(el, target);
-                observer.unobserve(el);
-            }
+            if (!entry.isIntersecting) return;
+            observer.unobserve(entry.target);
+            animateCounter(entry.target, counterTarget(entry.target));
         });
     }, { threshold: 0.5 });
 
     counters.forEach(counter => observer.observe(counter));
 }
 
+function counterTarget(el) {
+    const n = parseInt(el.getAttribute('data-count'), 10);
+    return Number.isFinite(n) ? n : 0;
+}
+
 function animateCounter(el, target) {
     const duration = 2000;
-    const startTime = performance.now();
+    let startTime = null;
 
-    function update(currentTime) {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-
-        // Ease out quad
+    function update(now) {
+        if (startTime === null) startTime = now;
+        const progress = Math.min((now - startTime) / duration, 1);
         const easeOut = 1 - (1 - progress) * (1 - progress);
-        const current = Math.round(easeOut * target);
-
-        el.textContent = current;
+        el.textContent = String(Math.round(easeOut * target));
 
         if (progress < 1) {
             requestAnimationFrame(update);
+        } else {
+            // Guarantee the exact target, never a rounding artefact.
+            el.textContent = String(target);
         }
     }
 
