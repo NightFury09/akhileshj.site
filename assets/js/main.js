@@ -322,53 +322,51 @@ document.head.appendChild(style);
 
 /* ─── SUPABASE INTEGRATION (CV DOWNLOAD) ────────────────────── */
 function initSupabaseCV() {
-    const cvBtn = document.getElementById('download-cv-btn');
-    if (!cvBtn) return;
-
-    // TODO: Replace with your actual Supabase URL and Anon Key
-    const SUPABASE_URL = 'https://YOUR_PROJECT_ID.supabase.co';
-    const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY';
+    const cvButtons = ['download-cv-btn', 'contact-cv'];
     
-    cvBtn.addEventListener('click', async (e) => {
-        e.preventDefault();
-        
-        if (SUPABASE_URL === 'https://YOUR_PROJECT_ID.supabase.co') {
-            alert("Supabase integration is wired up! Please seamlessly inject your genuine Project URL and Anon Key in assets/js/main.js to execute the secure database download interaction.");
-            return;
-        }
+    // Replace with your actual Supabase URL and Anon Key
+    const SUPABASE_URL = 'https://znardctqzegaknucahrq.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_CPkTkuL9CpRc5E2iWzaUNg_S_zs8iUQ';
 
-        const span = cvBtn.querySelector('span');
-        const originalText = span.innerText;
-        span.innerText = 'Querying DBMS...';
-        cvBtn.style.opacity = '0.7';
+    cvButtons.forEach(id => {
+        const btn = document.getElementById(id);
+        if (!btn) return;
 
-        try {
-            // Initialize Supabase Client
-            const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-            
-            /* SHOWCASING SUPABASE AS A DBMS:
-               We query a table named 'assets' to get the URL dynamically 
-               rather than hardcoding endpoints. 
-            */
-            const { data, error } = await _supabase
-                .from('assets')
-                .select('file_url')
-                .eq('name', 'resume_pdf')
-                .single();
+        btn.addEventListener('click', async (e) => {
+            e.preventDefault();
+
+            // Find the span that contains the text
+            const textSpan = btn.querySelector('.contact-method-value') || btn.querySelector('span');
+            if (!textSpan) return;
+
+            const originalText = textSpan.innerText;
+            textSpan.innerText = 'Querying DBMS...';
+            btn.style.opacity = '0.7';
+
+            try {
+                // Initialize Supabase Client
+                const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
                 
-            if (error) throw error;
-            if (data && data.file_url) {
-                window.open(data.file_url, '_blank');
-            } else {
-                throw new Error("No URL payload returned from database");
+                const { data, error } = await _supabase
+                    .from('assets')
+                    .select('file_url')
+                    .eq('name', 'resume_pdf')
+                    .single();
+                    
+                if (error) throw error;
+                if (data && data.file_url) {
+                    window.open(data.file_url, '_blank');
+                } else {
+                    throw new Error("No URL payload returned from database");
+                }
+                
+            } catch (error) {
+                console.error('Error querying Supabase execution:', error);
+                alert("Database connection failed. Please ensure the 'assets' table exists and your environmental keys are exact.");
+            } finally {
+                textSpan.innerText = originalText;
+                btn.style.opacity = '1';
             }
-            
-        } catch (error) {
-            console.error('Error querying Supabase execution:', error);
-            alert("Database connection failed. Please ensure the 'assets' table exists and your environmental keys are exact.");
-        } finally {
-            span.innerText = originalText;
-            cvBtn.style.opacity = '1';
-        }
+        });
     });
 }
