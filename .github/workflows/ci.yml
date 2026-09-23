@@ -1,0 +1,47 @@
+name: CI
+
+# Runs on every pull request, and on pushes to main as a safety net.
+# These are the checks that become "required" under branch protection:
+# a red run here blocks the merge button.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  links:
+    name: Local links resolve
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check every local href/src exists
+        run: bash .github/scripts/check-local-links.sh
+
+  placeholders:
+    name: No placeholder credentials
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fail if template values were shipped
+        run: |
+          if grep -rnE 'YOUR_PROJECT_ID|YOUR_ANON_KEY|YOUR_API_KEY|CHANGEME' \
+               --include='*.html' --include='*.js' --include='*.css' .; then
+            echo "::error::Placeholder credentials found - replace before merging."
+            exit 1
+          fi
+          echo "No placeholder credentials."
+
+  secrets:
+    name: Secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Scan history for leaked secrets
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
