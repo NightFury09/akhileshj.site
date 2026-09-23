@@ -85,9 +85,11 @@
                 } catch (err) {
                     /* Degrade to the plain dark background rather than leaving
                      * a dead canvas and a half-initialised render loop. */
+                    // Hide the whole container, not just the canvas: #bg-glow lives
+                    // inside it and exists to light the robot, so on its own it is
+                    // just an unexplained red halo chasing the cursor.
                     console.error('Spline scene failed to load; continuing without it.', err);
-                    const canvas = document.getElementById('canvas3d');
-                    if (canvas) canvas.hidden = true;
+                    if (splineBg) splineBg.hidden = true;
                 }
             }
         </script>

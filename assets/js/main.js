@@ -139,6 +139,7 @@ function initCursorGlow() {
 function initBackgroundGlow() {
     const bgGlow = document.getElementById('bg-glow');
     if (!bgGlow) return;
+    const host = document.getElementById('spline-transform') || bgGlow.parentElement;
 
     // The 3D scene is only loaded for fine pointers (see index.html), so there
     // is nothing here to drive on a phone.
@@ -180,8 +181,16 @@ function initBackgroundGlow() {
         // having weight.
         currentX += (targetX - currentX) * 0.035;
         currentY += (targetY - currentY) * 0.035;
-        bgGlow.style.left = currentX + 'px';
-        bgGlow.style.top = currentY + 'px';
+
+        // #bg-glow is a child of .spline-transform, which is 120vw x 120vh
+        // anchored at -10vw/-10vh - so its coordinate space is NOT the
+        // viewport's. Writing clientX straight into `left` drew the halo one
+        // tenth of the viewport up and to the left of the cursor, which read
+        // as a second glow trailing the real one. Subtracting the container's
+        // own offset puts it back under the pointer.
+        const origin = host.getBoundingClientRect();
+        bgGlow.style.left = (currentX - origin.left) + 'px';
+        bgGlow.style.top = (currentY - origin.top) + 'px';
     });
 }
 
