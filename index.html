@@ -89,6 +89,28 @@
                     const canvas = document.getElementById('canvas3d');
                     const spline = new Application(canvas);
                     await spline.load(SCENE);
+
+                    /* Render resolution is capped in CSS (.canvas3d is sized to
+                     * 75% and scaled back up), not here: Application.setSize()
+                     * does not honour what it is given - asking for 400x300
+                     * produced 1430x900. */
+
+                    /* The robot only exists in the hero. Without this it keeps
+                     * rendering at full rate while the visitor reads the rest
+                     * of the page, for nothing. */
+                    const hero = document.getElementById('hero');
+                    if (hero && 'IntersectionObserver' in window) {
+                        let running = true;
+                        new IntersectionObserver((entries) => {
+                            const visible = entries[0].isIntersecting;
+                            if (visible === running) return;
+                            running = visible;
+                            /* play(), not start(): start() re-deserializes the
+                             * scene and throws "Unexpected end of MessagePack
+                             * data" on a second call. play() resumes cleanly. */
+                            visible ? spline.play() : spline.stop();
+                        }, { threshold: 0 }).observe(hero);
+                    }
                 } catch (err) {
                     /* Degrade to the plain dark background rather than leaving
                      * a dead canvas and a half-initialised render loop. */

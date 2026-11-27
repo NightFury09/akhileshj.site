@@ -69,9 +69,14 @@ function hasFinePointer() {
 // visibility bookkeeping here on purpose: an earlier version gated the loop on
 // `document.hidden` and simply never started when the page loaded in a
 // background tab.
+const animationSteps = [];
+
 function runAnimationLoop(step) {
+    animationSteps.push(step);
+    if (animationSteps.length > 1) return;   // loop already running
+
     function frame() {
-        step();
+        for (let i = 0; i < animationSteps.length; i++) animationSteps[i]();
         requestAnimationFrame(frame);
     }
     requestAnimationFrame(frame);
@@ -127,10 +132,10 @@ function initCursorGlow() {
     runAnimationLoop(() => {
         glowX += (targetX - glowX) * 0.08;
         glowY += (targetY - glowY) * 0.08;
-        // left/top rather than transform: .bg-glow's glowPulse keyframes animate
-        // transform, and a running animation overrides inline transform.
-        glow.style.left = glowX + 'px';
-        glow.style.top = glowY + 'px';
+        // `translate` composites without triggering layout. It is a separate
+        // property from `transform`, so the glowPulse keyframes (which animate
+        // `scale`) no longer clobber it - the reason this used left/top before.
+        glow.style.translate = Math.round(glowX) + 'px ' + Math.round(glowY) + 'px';
     });
 }
 
@@ -188,8 +193,9 @@ function initBackgroundGlow() {
         // as a second glow trailing the real one. Subtracting the container's
         // own offset puts it back under the pointer.
         const origin = host.getBoundingClientRect();
-        bgGlow.style.left = (currentX - origin.left) + 'px';
-        bgGlow.style.top = (currentY - origin.top) + 'px';
+        bgGlow.style.translate =
+            Math.round(currentX - origin.left) + 'px ' +
+            Math.round(currentY - origin.top) + 'px';
     });
 }
 
