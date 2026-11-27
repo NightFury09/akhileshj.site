@@ -372,7 +372,10 @@ button {
     display: none;
     flex-direction: column;
     gap: 5px;
-    padding: 4px;
+    /* 4px gave a 32x24 hit area. The bars stay 24px wide; the extra padding
+       only grows the touch target, which is the primary nav control on a phone. */
+    padding: 12px;
+    margin-right: -12px;
     z-index: 101;
 }
 .mobile-menu-btn span {
@@ -668,9 +671,10 @@ button {
 }
 
 .metric {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+    /* Was flex-column, which made .metric-value and .metric-suffix separate
+       flex items - so "2" and "+" rendered on two lines instead of "2+".
+       The 2px left margin on .metric-suffix shows inline was always intended. */
+    display: block;
 }
 .metric-value {
     font-family: var(--font-display);
@@ -687,6 +691,8 @@ button {
     margin-left: 2px;
 }
 .metric-label {
+    display: block;
+    margin-top: 4px;
     font-size: 0.75rem;
     color: var(--text-tertiary);
     text-transform: uppercase;
@@ -832,7 +838,7 @@ button {
     color: var(--accent);
 }
 
-.about-card h4 {
+.about-card h3 {
     font-family: var(--font-display);
     font-size: 1rem;
     font-weight: 600;
@@ -1497,7 +1503,7 @@ button {
     line-height: 1.6;
 }
 
-.footer-links-group h4 {
+.footer-links-group h3 {
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -1690,6 +1696,30 @@ button {
     .about-details {
         grid-template-columns: 1fr;
     }
+}
+
+/* ─── SKIP LINK ─────────────────────────────────────────────── */
+/* Visually hidden until focused, so keyboard users can jump past the
+   navigation instead of tabbing through every link on every page load. */
+.skip-link {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    padding: 12px 20px;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom-right-radius: 8px;
+    transform: translateY(-120%);
+    transition: transform 0.2s var(--ease-out);
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+    outline: 2px solid #fff;
+    outline-offset: -4px;
 }
 
 /* ─── CURSOR GLOW ON TOUCH ──────────────────────────────────── */
