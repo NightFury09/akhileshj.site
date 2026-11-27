@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initSmoothScroll();
     initContactForm();
     initNavActiveHighlight();
-    initSupabaseCV();
 });
 
 /* ─── NAVBAR SCROLL EFFECT ──────────────────────────────────── */
@@ -373,53 +372,3 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-/* ─── SUPABASE INTEGRATION (CV DOWNLOAD) ────────────────────── */
-function initSupabaseCV() {
-    const cvButtons = ['download-cv-btn', 'contact-cv'];
-    
-    // Replace with your actual Supabase URL and Anon Key
-    const SUPABASE_URL = 'https://znardctqzegaknucahrq.supabase.co';
-    const SUPABASE_ANON_KEY = 'sb_publishable_CPkTkuL9CpRc5E2iWzaUNg_S_zs8iUQ';
-
-    cvButtons.forEach(id => {
-        const btn = document.getElementById(id);
-        if (!btn) return;
-
-        btn.addEventListener('click', async (e) => {
-            e.preventDefault();
-
-            // Find the span that contains the text
-            const textSpan = btn.querySelector('.contact-method-value') || btn.querySelector('span');
-            if (!textSpan) return;
-
-            const originalText = textSpan.innerText;
-            textSpan.innerText = 'Querying DBMS...';
-            btn.style.opacity = '0.7';
-
-            try {
-                // Initialize Supabase Client
-                const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-                
-                const { data, error } = await _supabase
-                    .from('assets')
-                    .select('file_url')
-                    .eq('name', 'resume_pdf')
-                    .single();
-                    
-                if (error) throw error;
-                if (data && data.file_url) {
-                    window.open(data.file_url, '_blank');
-                } else {
-                    throw new Error("No URL payload returned from database");
-                }
-                
-            } catch (error) {
-                console.error('Error querying Supabase execution:', error);
-                alert("Database connection failed. Please ensure the 'assets' table exists and your environmental keys are exact.");
-            } finally {
-                textSpan.innerText = originalText;
-                btn.style.opacity = '1';
-            }
-        });
-    });
-}
